@@ -4,38 +4,21 @@ function onReady() {
     console.log('on ready');
 
     
-    $('#addBtn').on('click', add);
-    $('#subtractBtnsubtractBtn').on('click', subtract);
-    $('#multipleBtn').on('click', multiple);
-    $('#divideBtn').on('click', divide);
-    $('#equal').on('click', doMath);
-    $('#clear').on('click', clearAll);
+    $(document).on('click', '#addBtn', add);
+    $(document).on('click', '#subtractBtn', subtract);
+    $(document).on('click', '#multipleBtn', multiple);
+    $(document).on('click', '#divideBtn', divide);
+    $(document).on('click', '#equalBtn', equal);
+    $(document).on('click', '#clearBtn', clearAll);
 }
 
-function doMath(event) {
-    // don't reload the page
-    event.preventDefault();
-
-    let result = {
-        numOne: $('#inputOne').val(),
-        numTwo: $('#inputTwo').val()
-    }
-    console.log('result', result);
-
-    $.ajax({
-        method: 'POST',
-        url:    '/calculation',
-        data:   math
-    })
-    .then ((reponse) =>{
-        console.log('in reponse', reponse);
-        
-    })
+function getResult(){
 
 }
 
 // sending add buton to server
-function add(){
+function add(event){
+    event.preventDefault();
     $.ajax({
         method: 'POST',
         url:    '/calculation',
@@ -45,7 +28,8 @@ function add(){
 } //  end of sending add button to server
 
 // sending subtract button to server
-function subtract(){
+function subtract(event){
+    event.preventDefault();
     $.ajax({
         method: 'POST',
         url:    '/calculation',
@@ -55,7 +39,8 @@ function subtract(){
 } //  end of sending subtract button to server
 
 // sending multiple button to server
-function multiple(){
+function multiple(event){
+    event.preventDefault();
     $.ajax({
         method: 'POST',
         url:    '/calculation',
@@ -65,7 +50,8 @@ function multiple(){
 } //  end of sending multiple button to server
 
 // sending divide button to server
-function divide(){
+function divide(event){
+    event.preventDefault();
     $.ajax({
         method: 'POST',
         url:    '/calculation',
@@ -76,7 +62,8 @@ function divide(){
 
 
 // sending equal button to server
-function euqal() {
+function equal(event) {
+    event.preventDefault();
     $ajax({
         method: 'POST',
         url:    '/calculation',
@@ -85,7 +72,8 @@ function euqal() {
 } // end of sending equal button 
 
 // sending clear button to server
-function clearAll(){
+function clearAll(event){
+    event.preventDefault();
     $ajax({
         method: 'POST',
         url:    '/calculation',

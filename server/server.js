@@ -32,8 +32,7 @@ app.post('/calculation', (req, res) => {
 
     let mathOperator = req.body;
     console.log('in mathOperator', mathOperator);
-    //testing
-    res.send(req.body);
+
 
 
     res.sendStatus(201);
