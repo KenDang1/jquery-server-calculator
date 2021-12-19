@@ -18,9 +18,23 @@ app.listen(PORT, () => {
   console.log ('Server is running on port', PORT)
 })
 
+let numOne
+let numTwo
+let operator = ''
+let answer = 0
 
-app.get('/calculator', (req, res) => {
-    console.log('testing 1 2 3 🎤');
+let math = {};
+console.log('math', math);
 
-    res.send('Hello, Ken are you ready to do this assignment?')
+
+
+app.post('/calculation', (req, res) => {
+
+    let mathOperator = req.body;
+    console.log('in mathOperator', mathOperator);
+    //testing
+    res.send(req.body);
+
+
+    res.sendStatus(201);
 })
