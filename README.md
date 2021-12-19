@@ -1,6 +1,20 @@
 # Project Name
 
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
+JQUERY SERVER CALCULATOR
+
+[ ] the layout should look like below 👇
+
+     [  42   + - * /   2 =  C  ]
+21
+*   12 - 4 = 8
+*   15 * 3 = 45
+
+[ ] build the server-side logic to compute the numbers that can handle Addition, Subtraction, Multiplication, and Division.
+
+[ ] after calculation it should render to the DOM and be keep there even when page refresh.  Only lose it when the server restart.
+
+[ ] do not use eval()
+
 
 ## Description
 

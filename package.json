@@ -1,0 +1,26 @@
+{
+  "name": "jquery-server-calculator",
+  "version": "1.0.0",
+  "description": "JQUERY SERVER CALCULATOR",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k3ndang/jquery-server-calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/k3ndang/jquery-server-calculator/issues"
+  },
+  "homepage": "https://github.com/k3ndang/jquery-server-calculator#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  }
+}
