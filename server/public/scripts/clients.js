@@ -57,7 +57,7 @@ function sendInputs(inputs) {
 }
 
 // GET /oldResults...receving the oldResults from server
-// copy fromt he refresh function from express
+// copy from the refresh function from express
 function getResults() {
     $.ajax({
         method: 'GET',
