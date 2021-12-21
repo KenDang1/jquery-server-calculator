@@ -2,18 +2,21 @@
 
 JQUERY SERVER CALCULATOR
 
-[ ] the layout should look like below 👇
+[✅] the layout should look like below 👇
 
      [  42   + - * /   2 =  C  ]
-21
+21  // did not get this part to work yet
 *   12 - 4 = 8
 *   15 * 3 = 45
 
-[ ] build the server-side logic to compute the numbers that can handle Addition, Subtraction, Multiplication, and Division.
+[✅] build the server-side logic to compute the numbers that can handle Addition, Subtraction, Multiplication, and Division.
 
-[ ] after calculation it should render to the DOM and be keep there even when page refresh.  Only lose it when the server restart.
+[✅] after calculation it should render to the DOM and be keep there even when page refresh.  Only lose it when the server restart.
 
-[ ] do not use eval()
+[✅] do not use eval()
+
+[✅] client handle the operator function, equal amd clear handler
+
 
 
 ## Description

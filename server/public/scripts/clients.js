@@ -1,109 +1,84 @@
 $(document).ready(onReady);
 
+let operator;
+let oldResult;
+
 function onReady() {
     console.log('on ready');
+    getResults();
 
-    // all the button 
-    $(document).on('click', '#addBtn', add);
-    $(document).on('click', '#subtractBtn', subtract);
-    $(document).on('click', '#multipleBtn', multiple);
-    $(document).on('click', '#divideBtn', divide);
-    $(document).on('click', '#equalBtn', equal);
-    $(document).on('click', '#clearBtn', clearAll);
+    // when the button is clicked
+    // then it would save the value to the operator variable
+    // https://stackoverflow.com/questions/16611012/innerhtml-of-clicked-element
+    $('.operatorBtn').on('click', mathOperator);
+    $('#equalBtn').on('click', storeInputs);
+    $('#clearBtn').on('click', clearAll);
 
     
 
 }
 
-function getResult(){
-
-}
-
-// sending first number to server
-function firstNum() {
-    let numOne = $('#numOne').val();
+function mathOperator(event) {
+    event.preventDefault();
+    operator = event.target.innerHTML;
+    console.log('operator', operator);
     
-    $.ajax({
-        method: 'POST',
-        url:    '/firstNumber',
-        data:   numOne
-    })
 }
 
-// sending second number to server
-function secondNum() {
-    let numTwo = $('#numTwo').val();
-
-    $.ajax({
-        method: 'POST',
-        url:    '/secondNumber',
-        data:   numTwo
-    })
+// storing the numbers input and operator inside an object
+function storeInputs() {
+    let inputs = {
+        num1:   parseInt($('#numOne').val()),
+        num2:   parseInt($('#numTwo').val()),
+        operatorSign:   operator,
+        answer: ' '
+    };
+    sendInputs(inputs);
 }
 
-
-// sending add buton to server
-function add(event){
-    event.preventDefault();
-    $.ajax({
-        method: 'POST',
-        url:    '/calculation',
-        data:   $('#addBtn').data()
-    })
-    console.log($('#addBtn'.data()));
-} //  end of sending add button to server
-
-// sending subtract button to server
-function subtract(event){
-    event.preventDefault();
-    $.ajax({
-        method: 'POST',
-        url:    '/calculation',
-        data:   $('#subtractBtn').data()
-    })
-    console.log($('#subtractBtn'.data()));
-} //  end of sending subtract button to server
-
-// sending multiple button to server
-function multiple(event){
-    event.preventDefault();
-    $.ajax({
-        method: 'POST',
-        url:    '/calculation',
-        data:   $('#multipleBtn').data()
-    })
-    console.log($('#multipleBtn'.data()));
-} //  end of sending multiple button to server
-
-// sending divide button to server
-function divide(event){
-    event.preventDefault();
-    $.ajax({
-        method: 'POST',
-        url:    '/calculation',
-        data:   $('#divideBtn').data()
-    })
-    console.log($('#divideBtn'.data()));
-} //  end of sending divide button to server
-
-
-// sending equal button to server
-function equal(event) {
-    event.preventDefault();
-    $ajax({
-        method: 'POST',
-        url:    '/calculation',
-        data:   $('#equalBtn').data()
-    })
-} // end of sending equal button 
-
-// sending clear button to server
+// clear handling
 function clearAll(event){
     event.preventDefault();
-    $ajax({
-        method: 'POST',
-        url:    '/calculation',
-        data:   $('#clearBtn').data()
-    })
-} // end of sending clear button
+    // empty the input fields
+    $('#numOne').val('');
+    $('#numTwo').val('');
+    $('#history').empty();
+} // end of clear handling
 
+// sending the input data to server
+function sendInputs(inputs) {
+    $.ajax({
+        method: 'POST',
+        url:    '/doMath',
+        data:   inputs
+    })
+    .then((reponse) => {
+        console.log('in POST /doMath', reponse);
+    getResults();   
+    })
+}
+
+// GET /oldResults...receving the oldResults from server
+function getResults() {
+    $.ajax({
+        method: 'GET',
+        url:    '/oldResults',
+    })
+    .then((reponse) => {
+        oldResults = reponse;
+    // render to the DOM    
+    render();
+    })
+}
+
+function render() {
+    $('#history').empty();
+    // looping through the oldResults and appending the object
+    for (let result of oldResults) {
+        $('#history').append(`
+            <li>
+            ${result.num1} ${result.operatorSign} ${result.num2} = ${result.answer}
+            </li>
+        `)
+    }
+}

@@ -18,47 +18,39 @@ app.listen(PORT, () => {
   console.log ('Server is running on port', PORT)
 })
 
-let numOne;
-let numTwo;
-let operator = '';
-let answer = 0;
-let oldResult = [];
+let oldResults = [];
 
-// Reveiving data from client
-app.post('/calculation', (req, res) => {
-
-    let mathOperator = req.body;
-    console.log('in mathOperator', mathOperator);
-
-    // if client send add data then it become this
-      if (mathOperator.method === 'add') {
-        operator = 'add';
-        // if data send over subtract
-      } else if (mathOperator.method === 'subtract') {
-        operator = 'subtract';
-      } else if (mathOperator.method === 'multiply') {
-        operator = 'multiply';
-      } else if (mathOperator.method === 'divide') {
-        operator = 'divide';
-      }
-      console.log('operator is:', operator);
-      
-
-    res.sendStatus(201);
+// GET /oldResults endpoint
+app.get('/oldResults', (req, res) => {
+  res.send(oldResults)
 })
 
-// receiving first input number data
-app.post('/fistNumber', (req, res) => {
-  numOne = req.body
-  console.log('firstNumber input:', numOne);
+app.post('/doMath', (req, res) => {
+  // req.body is the inputs in storeInputs function on clients side
+  let numbers = req.body;
+  // mumbers.operatorSign is how you access the object value
+  // same as numbers.num1 and numbers.num2
+  let operator = numbers.operatorSign;
+  let num1 = parseFloat(numbers.num1);
+  let num2 = parseFloat(numbers.num2);
+  // if the operator is +
+  if (operator === '+') {
+    console.log('operator', operator);
+    // numbers.result equal to num1 + num2
+    // numbers.result was send over as an empty string
+    numbers.answer = num1 + num2;
+  } else if (operator === '-') {
+    numbers.answer = num1 - num2;
+  } else if (operator === '*') {
+    numbers.answer = num1 * num2;
+  } else if (operator === '/') {
+    numbers.answer = num1 / num2;
+  }
+console.log('result', numbers.result);
 
-  res.send(201);
-})
+// pushing or adding the math that just did to the oldResult array
+oldResults.push(numbers)
+console.log('old math:', oldResults);
 
-// reveiving second input number data
-app.post('/secondNumber', (req, res) => {
-  numTwo = req.body
-  console.log('secondNumber is:', numTwo)
-
-  res.send(201)
+res.sendStatus(201);
 })
