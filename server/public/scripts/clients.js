@@ -3,18 +3,44 @@ $(document).ready(onReady);
 function onReady() {
     console.log('on ready');
 
-    
+    // all the button 
     $(document).on('click', '#addBtn', add);
     $(document).on('click', '#subtractBtn', subtract);
     $(document).on('click', '#multipleBtn', multiple);
     $(document).on('click', '#divideBtn', divide);
     $(document).on('click', '#equalBtn', equal);
     $(document).on('click', '#clearBtn', clearAll);
+
+    
+
 }
 
 function getResult(){
 
 }
+
+// sending first number to server
+function firstNum() {
+    let numOne = $('#numOne').val();
+    
+    $.ajax({
+        method: 'POST',
+        url:    '/firstNumber',
+        data:   numOne
+    })
+}
+
+// sending second number to server
+function secondNum() {
+    let numTwo = $('#numTwo').val();
+
+    $.ajax({
+        method: 'POST',
+        url:    '/secondNumber',
+        data:   numTwo
+    })
+}
+
 
 // sending add buton to server
 function add(event){
